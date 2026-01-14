@@ -8,7 +8,7 @@
 
 ---
 
-## 📋 Índice
+## Índice
 
 - [Visão Geral](#-visão-geral)
 - [Características](#-características)
@@ -26,7 +26,7 @@
 
 ---
 
-## 🎯 Visão Geral
+## Visão Geral
 
 Este é um sistema de autenticação **production-ready** que pode ser facilmente integrado em qualquer projeto Rust. O diferencial é a **total independência de banco de dados**, permitindo que você escolha (ou troque) o banco sem alterar nenhuma linha de código da lógica de negócio.
 
@@ -46,37 +46,37 @@ Este é um sistema de autenticação **production-ready** que pode ser facilment
 
 ### Autenticação
 
-- 🔑 Registro de usuários com validação
-- 🔓 Login com username/password
-- 🎫 JWT tokens (JSON Web Tokens)
-- 🔒 Proteção de rotas via middleware
-- ⏰ Tokens com expiração (24 horas por padrão)
+- Registro de usuários com validação
+- Login com username/password
+- JWT tokens (JSON Web Tokens)
+- Proteção de rotas via middleware
+- Tokens com expiração (24 horas por padrão)
 
 ### Segurança
 
-- 🛡️ Hash de senhas com **Argon2** (recomendado pela OWASP)
-- 🔐 JWT assinado com HMAC-SHA256
-- 🚫 Senhas nunca retornadas nas respostas
-- ✅ Validação de duplicidade (email e username únicos)
+- Hash de senhas com **Argon2** (recomendado pela OWASP)
+- JWT assinado com HMAC-SHA256
+- Senhas nunca retornadas nas respostas
+- Validação de duplicidade (email e username únicos)
 
 ### Banco de Dados
 
-- 💾 **In-Memory** - Para desenvolvimento e testes
-- 🐘 **PostgreSQL** - Banco relacional robusto
-- 🐬 **MySQL** - Compatível com MariaDB
-- 📦 **SQLite** - Banco de dados local
-- 🍃 **MongoDB** - NoSQL document-based
+- **In-Memory** - Para desenvolvimento e testes
+- **PostgreSQL** - Banco relacional robusto
+- **MySQL** - Compatível com MariaDB
+- **SQLite** - Banco de dados local
+- **MongoDB** - NoSQL document-based
 
 ### Arquitetura
 
-- 🎨 **Repository Pattern** - Desacoplamento total
-- 🧩 **Trait-based** - Extensível e testável
-- 🔄 **Async/Await** - Performance com Tokio
-- 📦 **Modular** - Use apenas o que precisa
+- **Repository Pattern** - Desacoplamento total
+- **Trait-based** - Extensível e testável
+- **Async/Await** - Performance com Tokio
+- **Modular** - Use apenas o que precisa
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -112,7 +112,7 @@ Este é um sistema de autenticação **production-ready** que pode ser facilment
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Pré-requisitos
 

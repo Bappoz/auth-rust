@@ -4,75 +4,75 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-> Sistema de autenticação completo, seguro, modular e **agnóstico ao banco de dados** construído com Rust e Axum.
+> Complete, secure, modular authentication system **database-agnostic** built with Rust and Axum.
 
 ---
 
-## Índice
+## Table of Contents
 
-- [Visão Geral](#-visão-geral)
-- [Características](#-características)
-- [Arquitetura](#-arquitetura)
+- [Overview](#-overview)
+- [Features](#-features)
+- [Architecture](#-architecture)
 - [Quick Start](#-quick-start)
-- [Configuração de Banco de Dados](#-configuração-de-banco-de-dados)
-- [Endpoints da API](#-endpoints-da-api)
-- [Estrutura do Projeto](#-estrutura-do-projeto)
-- [Segurança](#-segurança)
-- [Como Usar em Outros Projetos](#-como-usar-em-outros-projetos)
-- [Exemplos](#-exemplos)
-- [Testes](#-testes)
-- [Contribuindo](#-contribuindo)
-- [Licença](#-licença)
+- [Database Configuration](#-database-configuration)
+- [API Endpoints](#-api-endpoints)
+- [Project Structure](#-project-structure)
+- [Security](#-security)
+- [How to Use in Other Projects](#-how-to-use-in-other-projects)
+- [Examples](#-examples)
+- [Testing](#-testing)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ---
 
-## Visão Geral
+## Overview
 
-Este é um sistema de autenticação **production-ready** que pode ser facilmente integrado em qualquer projeto Rust. O diferencial é a **total independência de banco de dados**, permitindo que você escolha (ou troque) o banco sem alterar nenhuma linha de código da lógica de negócio.
+This is a **production-ready** authentication system that can be easily integrated into any Rust project. The key feature is **complete database independence**, allowing you to choose (or switch) databases without changing a single line of business logic code.
 
-### Por que usar este sistema?
+### Why use this system?
 
-- ✅ **Agnóstico ao Banco de Dados** - Use PostgreSQL, MySQL, SQLite, MongoDB ou até in-memory
-- ✅ **Segurança em Primeiro Lugar** - Argon2 para hash de senhas, JWT para tokens
-- ✅ **Modular e Reutilizável** - Clone e use em qualquer projeto
-- ✅ **Type-Safe** - Aproveite a segurança de tipos do Rust
-- ✅ **Async/Await** - Performance máxima com Tokio
-- ✅ **Pronto para Produção** - Tratamento robusto de erros
-- ✅ **Fácil de Estender** - Adicione novos bancos implementando uma trait
+- ✅ **Database Agnostic** - Use PostgreSQL, MySQL, SQLite, MongoDB or even in-memory
+- ✅ **Security First** - Argon2 for password hashing, JWT for tokens
+- ✅ **Modular and Reusable** - Clone and use in any project
+- ✅ **Type-Safe** - Leverage Rust's type safety
+- ✅ **Async/Await** - Maximum performance with Tokio
+- ✅ **Production Ready** - Robust error handling
+- ✅ **Easy to Extend** - Add new databases by implementing a trait
 
 ---
 
-## ✨ Características
+## ✨ Features
 
-### Autenticação
+### Authentication
 
-- Registro de usuários com validação
-- Login com username/password
+- User registration with validation
+- Login with username/password
 - JWT tokens (JSON Web Tokens)
-- Proteção de rotas via middleware
-- Tokens com expiração (24 horas por padrão)
+- Route protection via middleware
+- Tokens with expiration (24 hours by default)
 
-### Segurança
+### Security
 
-- Hash de senhas com **Argon2** (recomendado pela OWASP)
-- JWT assinado com HMAC-SHA256
-- Senhas nunca retornadas nas respostas
-- Validação de duplicidade (email e username únicos)
+- Password hashing with **Argon2** (OWASP recommended)
+- JWT signed with HMAC-SHA256
+- Passwords never returned in responses
+- Uniqueness validation (unique email and username)
 
-### Banco de Dados
+### Database
 
-- **In-Memory** - Para desenvolvimento e testes
-- **PostgreSQL** - Banco relacional robusto
-- **MySQL** - Compatível com MariaDB
-- **SQLite** - Banco de dados local
+- **In-Memory** - For development and testing
+- **PostgreSQL** - Robust relational database
+- **MySQL** - Compatible with MariaDB
+- **SQLite** - Local database
 - **MongoDB** - NoSQL document-based
 
-### Arquitetura
+### Architecture
 
-- **Repository Pattern** - Desacoplamento total
-- **Trait-based** - Extensível e testável
-- **Async/Await** - Performance com Tokio
-- **Modular** - Use apenas o que precisa
+- **Repository Pattern** - Complete decoupling
+- **Trait-based** - Extensible and testable
+- **Async/Await** - Performance with Tokio
+- **Modular** - Use only what you need
 
 ---
 
@@ -114,102 +114,102 @@ Este é um sistema de autenticação **production-ready** que pode ser facilment
 
 ## Quick Start
 
-### Pré-requisitos
+### Prerequisites
 
-- Rust 1.70 ou superior
-- (Opcional) Banco de dados de sua escolha
+- Rust 1.70 or higher
+- (Optional) Database of your choice
 
-### Instalação
+### Installation
 
 ```bash
-# Clone o repositório
+# Clone the repository
 git clone https://github.com/seu-usuario/auth-system-rust.git
 cd auth-system-rust
 
-# Copie o arquivo de exemplo .env
+# Copy the example .env file
 cp .env.example .env
 
-# Edite o .env e configure seu JWT_SECRET
-# Você pode gerar um com: openssl rand -base64 32
+# Edit .env and configure your JWT_SECRET
+# You can generate one with: openssl rand -base64 32
 nano .env
 ```
 
-### Executar com In-Memory (sem banco)
+### Run with In-Memory (no database)
 
 ```bash
-# Compile e execute
+# Compile and run
 cargo run
 
-# O servidor iniciará em http://0.0.0.0:3000
+# The server will start at http://0.0.0.0:3000
 ```
 
-### Testar os Endpoints
+### Test the Endpoints
 
 ```bash
-# 1. Registrar um novo usuário
+# 1. Register a new user
 curl -X POST http://localhost:3000/register \
   -H "Content-Type: application/json" \
   -d '{
-    "username": "joao",
-    "email": "joao@email.com",
-    "password": "senha123"
+    "username": "john",
+    "email": "john@email.com",
+    "password": "Password123!"
   }'
 
-# Resposta: {"token":"eyJ0eXAiOiJKV1QiLCJhbGc..."}
+# Response: {"token":"eyJ0eXAiOiJKV1QiLCJhbGc..."}
 
 # 2. Login
 curl -X POST http://localhost:3000/login \
   -H "Content-Type: application/json" \
   -d '{
-    "username": "joao",
-    "password": "senha123"
+    "username": "john",
+    "password": "Password123!"
   }'
 
-# 3. Acessar rota protegida (use o token recebido)
+# 3. Access protected route (use the received token)
 curl -X GET http://localhost:3000/private \
-  -H "Authorization: Bearer SEU_TOKEN_AQUI"
+  -H "Authorization: Bearer YOUR_TOKEN_HERE"
 
-# Resposta: "Acesso concedido para o usuário: <user_id>"
+# Response: "Access granted for user: <user_id>"
 ```
 
 ---
 
-## 💾 Configuração de Banco de Dados
+## 💾 Database Configuration
 
-### Opção 1: In-Memory (Padrão)
+### Option 1: In-Memory (Default)
 
-**Ideal para:** Desenvolvimento, testes, protótipos
+**Ideal for:** Development, testing, prototypes
 
-**Configuração:** Nenhuma! Já está pronto para usar.
+**Configuration:** None! It's ready to use.
 
-**Aviso:** Os dados são perdidos quando o processo termina.
+**Warning:** Data is lost when the process ends.
 
 ```rust
-// Já configurado na main.rs
+// Already configured in main.rs
 let user_repo = Arc::new(InMemoryUserRepository::new());
 ```
 
 ---
 
-### Opção 2: PostgreSQL
+### Option 2: PostgreSQL
 
-**Ideal para:** Produção, aplicações robustas
+**Ideal for:** Production, robust applications
 
-#### 1. Habilite a feature no Cargo.toml
+#### 1. Enable the feature in Cargo.toml
 
 ```toml
 [features]
 default = ["postgres"]
 ```
 
-#### 2. Configure o .env
+#### 2. Configure .env
 
 ```env
-JWT_SECRET=seu_segredo_aqui
-DATABASE_URL=postgresql://usuario:senha@localhost/auth_db
+JWT_SECRET=your_secret_here
+DATABASE_URL=postgresql://user:password@localhost/auth_db
 ```
 
-#### 3. Crie o banco e a tabela
+#### 3. Create the database and table
 
 ```sql
 CREATE DATABASE auth_db;
@@ -228,30 +228,30 @@ CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_username ON users(username);
 ```
 
-#### 4. Descomente o código na main.rs
+#### 4. Uncomment the code in main.rs
 
-Veja a seção comentada no final do arquivo `src/main.rs` e descomente o bloco PostgreSQL.
+See the commented section at the end of the `src/main.rs` file and uncomment the PostgreSQL block.
 
 ---
 
-### Opção 3: MySQL
+### Option 3: MySQL
 
-**Ideal para:** Aplicações que já usam MySQL/MariaDB
+**Ideal for:** Applications already using MySQL/MariaDB
 
-#### 1. Habilite a feature
+#### 1. Enable the feature
 
 ```toml
 [features]
 default = ["mysql"]
 ```
 
-#### 2. Configure o .env
+#### 2. Configure .env
 
 ```env
-DATABASE_URL=mysql://usuario:senha@localhost/auth_db
+DATABASE_URL=mysql://user:password@localhost/auth_db
 ```
 
-#### 3. Crie a tabela
+#### 3. Create the table
 
 ```sql
 CREATE TABLE users (
@@ -265,28 +265,28 @@ CREATE TABLE users (
 );
 ```
 
-#### 4. Descomente o código MySQL na main.rs
+#### 4. Uncomment the MySQL code in main.rs
 
 ---
 
-### Opção 4: SQLite
+### Option 4: SQLite
 
-**Ideal para:** Aplicações desktop, projetos pequenos
+**Ideal for:** Desktop applications, small projects
 
-#### 1. Habilite a feature
+#### 1. Enable the feature
 
 ```toml
 [features]
 default = ["sqlite"]
 ```
 
-#### 2. Configure o .env
+#### 2. Configure .env
 
 ```env
 DATABASE_URL=sqlite://auth.db
 ```
 
-#### 3. Crie a tabela
+#### 3. Create the table
 
 ```sql
 CREATE TABLE users (
@@ -300,15 +300,15 @@ CREATE TABLE users (
 );
 ```
 
-#### 4. Descomente o código SQLite na main.rs
+#### 4. Uncomment the SQLite code in main.rs
 
 ---
 
-### Opção 5: MongoDB
+### Option 5: MongoDB
 
-**Ideal para:** Aplicações NoSQL, dados não estruturados
+**Ideal for:** NoSQL applications, unstructured data
 
-#### 1. Habilite a feature
+#### 1. Enable the feature
 
 ```toml
 [features]
@@ -322,37 +322,37 @@ MONGODB_URI=mongodb://localhost:27017
 MONGODB_DATABASE=auth_db
 ```
 
-#### 3. Não precisa criar tabela!
+#### 3. No need to create a table!
 
-O MongoDB cria a collection automaticamente. Opcionalmente, você pode criar índices para melhor performance:
+MongoDB creates the collection automatically. Optionally, you can create indexes for better performance:
 
 ```bash
-# Opção A: Executar script de setup (cria índices)
+# Option A: Run setup script (creates indexes)
 cargo run --example mongodb_setup --features mongodb
 
-# Opção B: MongoDB cria tudo automaticamente no primeiro uso
-# Simplesmente execute a aplicação!
+# Option B: MongoDB creates everything automatically on first use
+# Simply run the application!
 ```
 
-**Nota:** MongoDB é schema-less (sem schema fixo), por isso não precisa de migrations como SQL databases.
+**Note:** MongoDB is schema-less (no fixed schema), so it doesn't need migrations like SQL databases.
 
-#### 4. Descomente o código MongoDB na main.rs
+#### 4. Uncomment the MongoDB code in main.rs
 
 ---
 
-## 📡 Endpoints da API
+## 📡 API Endpoints
 
 ### POST /register
 
-Registra um novo usuário.
+Register a new user.
 
 **Request Body:**
 
 ```json
 {
-  "username": "joao",
-  "email": "joao@email.com",
-  "password": "senha123"
+  "username": "john",
+  "email": "john@email.com",
+  "password": "Password123!"
 }
 ```
 
@@ -366,21 +366,21 @@ Registra um novo usuário.
 
 **Errors:**
 
-- `409 Conflict` - Usuário já existe
-- `500 Internal Server Error` - Erro ao processar
+- `409 Conflict` - User already exists
+- `500 Internal Server Error` - Processing error
 
 ---
 
 ### POST /login
 
-Autentica um usuário existente.
+Authenticate an existing user.
 
 **Request Body:**
 
 ```json
 {
-  "username": "joao",
-  "password": "senha123"
+  "username": "john",
+  "password": "Password123!"
 }
 ```
 
@@ -394,62 +394,62 @@ Autentica um usuário existente.
 
 **Errors:**
 
-- `401 Unauthorized` - Credenciais inválidas
+- `401 Unauthorized` - Invalid credentials
 
 ---
 
 ### GET /private
 
-Rota protegida (requer autenticação).
+Protected route (requires authentication).
 
 **Headers:**
 
 ```
-Authorization: Bearer <seu_token_jwt>
+Authorization: Bearer <your_jwt_token>
 ```
 
 **Response (200 OK):**
 
 ```
-Acesso concedido para o usuário: <user_id>
+Access granted for user: <user_id>
 ```
 
 **Errors:**
 
-- `401 Unauthorized` - Token inválido, expirado ou ausente
+- `401 Unauthorized` - Invalid, expired or missing token
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 
 ```
 auth-system/
-├── Cargo.toml                # Dependências e configurações
-├── .env                      # Variáveis de ambiente (não commitar!)
-├── .env.example              # Exemplo de configuração
-├── README.md                 # Esta documentação
+├── Cargo.toml                # Dependencies and configurations
+├── .env                      # Environment variables (do not commit!)
+├── .env.example              # Configuration example
+├── README.md                 # This documentation
 │
 ├── src/
-│   ├── lib.rs                # Biblioteca principal (AppState)
-│   ├── main.rs               # Entry point (servidor HTTP)
-│   ├── errors.rs             # Tipos de erro customizados
+│   ├── lib.rs                # Main library (AppState)
+│   ├── main.rs               # Entry point (HTTP server)
+│   ├── errors.rs             # Custom error types
 │   │
-│   ├── auth/                 # Módulo de autenticação
+│   ├── auth/                 # Authentication module
 │   │   ├── mod.rs
-│   │   ├── crypto.rs         # Hash/verificação de senhas (Argon2)
-│   │   ├── jwt.rs            # Criação/validação de JWT
-│   │   └── extractor.rs      # Extrator de usuário autenticado (Axum)
+│   │   ├── crypto.rs         # Hash/verification of passwords (Argon2)
+│   │   ├── jwt.rs            # JWT creation/validation
+│   │   └── extractor.rs      # Authenticated user extractor (Axum)
 │   │
-│   ├── db/                   # Camada de banco de dados
+│   ├── db/                   # Database layer
 │   │   ├── mod.rs
 │   │   ├── user_repository.rs         # Trait (interface)
-│   │   ├── memory_connection.rs       # Implementação in-memory
-│   │   ├── postgres_connection.rs     # Implementação PostgreSQL
-│   │   ├── mysql_connection.rs        # Implementação MySQL
-│   │   ├── sqlite_connection.rs       # Implementação SQLite
-│   │   └── mongodb_connection.rs      # Implementação MongoDB
+│   │   ├── memory_connection.rs       # In-memory implementation
+│   │   ├── postgres_connection.rs     # PostgreSQL implementation
+│   │   ├── mysql_connection.rs        # MySQL implementation
+│   │   ├── sqlite_connection.rs       # SQLite implementation
+│   │   └── mongodb_connection.rs      # MongoDB implementation
 │   │
-│   ├── models/               # Modelos de dados
+│   ├── models/               # Data models
 │   │   ├── mod.rs
 │   │   ├── user.rs           # User, CreateUser
 │   │   └── auth.rs           # LoginRequest, RegisterRequest, LoginResponse
@@ -458,65 +458,65 @@ auth-system/
 │       ├── mod.rs
 │       └── auth_handler.rs   # register_handler, login_handler
 │
-└── migrations/               # SQL migrations (opcional)
+└── migrations/               # SQL migrations (optional)
     └── 001_create_users.sql
 ```
 
 ---
 
-## 🔒 Segurança
+## 🔒 Security
 
-### Hash de Senhas
+### Password Hashing
 
-Utilizamos **Argon2**, vencedor do Password Hashing Competition e recomendado pela OWASP:
+We use **Argon2**, winner of the Password Hashing Competition and recommended by OWASP:
 
-- ✅ Resistente a ataques de força bruta
-- ✅ Resistente a ataques de GPU/ASIC
-- ✅ Salt único por senha
-- ✅ Configurações seguras por padrão
+- ✅ Resistant to brute force attacks
+- ✅ Resistant to GPU/ASIC attacks
+- ✅ Unique salt per password
+- ✅ Secure settings by default
 
 ### JWT Tokens
 
-- ✅ Assinado com HMAC-SHA256
-- ✅ Expira em 24 horas (configurável)
-- ✅ Contém apenas o ID do usuário (sem dados sensíveis)
-- ✅ Validado em cada requisição
+- ✅ Signed with HMAC-SHA256
+- ✅ Expires in 24 hours (configurable)
+- ✅ Contains only the user ID (no sensitive data)
+- ✅ Validated on each request
 
-### Boas Práticas
+### Best Practices
 
-1. **Nunca commite o `.env`** - Adicione ao `.gitignore`
-2. **Use secrets fortes** - Gere com `openssl rand -base64 32`
-3. **HTTPS em produção** - Use TLS/SSL
-4. **Rate limiting** - Adicione proteção contra brute force
-5. **Validação de entrada** - Sempre valide dados do usuário
+1. **Never commit `.env`** - Add to `.gitignore`
+2. **Use strong secrets** - Generate with `openssl rand -base64 32`
+3. **HTTPS in production** - Use TLS/SSL
+4. **Rate limiting** - Add brute force protection
+5. **Input validation** - Always validate user data
 
 ---
 
-## 🔄 Como Usar em Outros Projetos
+## 🔄 How to Use in Other Projects
 
-### Método 1: Clonar e Customizar
+### Method 1: Clone and Customize
 
-1. Clone este repositório para seu projeto
-2. Escolha o banco de dados (veja seção de configuração)
-3. Customize os modelos e handlers conforme necessário
-4. Execute e desenvolva!
+1. Clone this repository to your project
+2. Choose the database (see configuration section)
+3. Customize models and handlers as needed
+4. Run and develop!
 
-### Método 2: Como Dependência Local
+### Method 2: As Local Dependency
 
 ```toml
-# Seu projeto/Cargo.toml
+# Your project/Cargo.toml
 [dependencies]
 auth-system = { path = "../auth-system" }
 ```
 
 ```rust
-// Seu projeto/src/main.rs
+// Your project/src/main.rs
 use auth_system::{AppState, handlers::auth_handler};
 use auth_system::db::postgres_connection::PostgresUserRepository;
 
 #[tokio::main]
 async fn main() {
-    // Configure seu banco
+    // Configure your database
     let user_repo = Arc::new(PostgresUserRepository::new(pool));
 
     let state = AppState {
@@ -524,29 +524,29 @@ async fn main() {
         user_repo,
     };
 
-    // Use os handlers prontos!
+    // Use the ready-made handlers!
     let app = Router::new()
         .route("/register", post(auth_handler::register_handler))
         .route("/login", post(auth_handler::login_handler));
 }
 ```
 
-### Método 3: Criar Implementação Customizada
+### Method 3: Create Custom Implementation
 
 ```rust
-// Seu projeto/src/db/custom_repository.rs
+// Your project/src/db/custom_repository.rs
 use async_trait::async_trait;
 use auth_system::db::user_repository::UserRepository;
 
-struct MeuRepository {
-    // Sua implementação
+struct MyRepository {
+    // Your implementation
 }
 
 #[async_trait]
-impl UserRepository for MeuRepository {
-    // Implemente os métodos
+impl UserRepository for MyRepository {
+    // Implement the methods
     async fn create(...) -> Result<User, AuthError> {
-        // Sua lógica
+        // Your logic
     }
     // ...
 }
@@ -554,9 +554,9 @@ impl UserRepository for MeuRepository {
 
 ---
 
-## 📝 Exemplos
+## 📝 Examples
 
-### Exemplo 1: API Completa com PostgreSQL
+### Example 1: Complete API with PostgreSQL
 
 ```rust
 use auth_system::{AppState, handlers::auth_handler};
@@ -586,18 +586,18 @@ async fn main() {
         .route("/profile", get(profile_handler))  // Custom handler
         .with_state(state);
 
-    // ... servidor
+    // ... server
 }
 
-// Handler customizado que usa AuthUser
+// Custom handler that uses AuthUser
 async fn profile_handler(user: AuthUser) -> Json<UserProfile> {
-    // user.user_id contém o ID do usuário autenticado
-    // Busque dados adicionais e retorne
+    // user.user_id contains the authenticated user's ID
+    // Fetch additional data and return
     Json(UserProfile { /* ... */ })
 }
 ```
 
-### Exemplo 2: Testes Unitários
+### Example 2: Unit Tests
 
 ```rust
 #[cfg(test)]
@@ -616,7 +616,7 @@ mod tests {
         let request = RegisterRequest {
             username: "test".into(),
             email: "test@test.com".into(),
-            password: "senha123".into(),
+            password: "Password123!".into(),
         };
 
         let result = register_handler(State(state), Json(request)).await;
@@ -627,36 +627,36 @@ mod tests {
 
 ---
 
-## 🧪 Testes
+## 🧪 Testing
 
 ```bash
-# Rodar todos os testes
+# Run all tests
 cargo test
 
-# Rodar com output detalhado
+# Run with detailed output
 cargo test -- --nocapture
 
-# Testar feature específica
+# Test specific feature
 cargo test --features postgres
 ```
 
 ---
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Contribuições são bem-vindas! Por favor:
+Contributions are welcome! Please:
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/MyFeature`)
+3. Commit your changes (`git commit -m 'Add MyFeature'`)
+4. Push to the branch (`git push origin feature/MyFeature`)
+5. Open a Pull Request
 
-### Áreas para Contribuir
+### Areas to Contribute
 
-- [ ] Adicionar mais bancos de dados (Redis, DynamoDB, etc)
-- [ ] Implementar refresh tokens
-- [ ] Adicionar 2FA (Two-Factor Authentication)
+- [ ] Add more databases (Redis, DynamoDB, etc)
+- [ ] Implement refresh tokens
+- [ ] Add 2FA (Two-Factor Authentication)
 - [ ] Rate limiting
 - [ ] Email verification
 - [ ] Password reset
@@ -665,34 +665,34 @@ Contribuições são bem-vindas! Por favor:
 
 ---
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
-## 🙏 Agradecimentos
+## 🙏 Acknowledgments
 
-- [Axum](https://github.com/tokio-rs/axum) - Framework web
+- [Axum](https://github.com/tokio-rs/axum) - Web framework
 - [SQLx](https://github.com/launchbadge/sqlx) - SQL toolkit
 - [jsonwebtoken](https://github.com/Keats/jsonwebtoken) - JWT implementation
 - [argon2](https://github.com/RustCrypto/password-hashes) - Password hashing
 
 ---
 
-## 📞 Suporte
+## 📞 Support
 
-Se você tiver problemas ou dúvidas:
+If you have problems or questions:
 
-1. Verifique a [documentação](#-índice)
-2. Procure por [issues existentes](https://github.com/seu-usuario/auth-system-rust/issues)
-3. Abra uma [nova issue](https://github.com/seu-usuario/auth-system-rust/issues/new)
+1. Check the [documentation](#-table-of-contents)
+2. Search for [existing issues](https://github.com/seu-usuario/auth-system-rust/issues)
+3. Open a [new issue](https://github.com/seu-usuario/auth-system-rust/issues/new)
 
 ---
 
-## 🎓 Aprenda Mais
+## 🎓 Learn More
 
-- [Documentação do Rust](https://doc.rust-lang.org/)
+- [Rust Documentation](https://doc.rust-lang.org/)
 - [Axum Documentation](https://docs.rs/axum/)
 - [JWT.io](https://jwt.io/)
 - [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
@@ -701,8 +701,8 @@ Se você tiver problemas ou dúvidas:
 
 <div align="center">
 
-**Feito com ❤️ e Rust 🦀**
+**Made with ❤️ and Rust 🦀**
 
-[⬆ Voltar ao topo](#-auth-system-rust)
+[⬆ Back to top](#-auth-system-rust)
 
 </div>

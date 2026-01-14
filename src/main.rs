@@ -35,19 +35,19 @@ async fn main() {
 
 
 async fn protect_handler(user: AuthUser) -> String {
-    format!("Acesso concedido para o usuário: {}", user.user_id)
+    format!("Access granted for user: {}", user.user_id)
 }
 
 
 
 // ==================================================================================
-// 🔧 EXEMPLOS DE CONFIGURAÇÃO PARA OUTROS BANCOS DE DADOS
+// 🔧 EXAMPLES OF CONFIGURATION FOR OTHER DATABASES
 // ==================================================================================
-// Descomente e configure o banco de dados que você deseja usar.
-// Lembre-se de:
-// 1. Habilitar a feature correspondente no Cargo.toml
-// 2. Adicionar as dependências necessárias
-// 3. Configurar as variáveis de ambiente no .env
+// Uncomment and configure the database you want to use.
+// Remember to:
+// 1. Enable the corresponding feature in Cargo.toml
+// 2. Add the necessary dependencies
+// 3. Configure the environment variables in .env
 // ==================================================================================
 
 // ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -63,10 +63,10 @@ async fn protect_handler(user: AuthUser) -> String {
 //    features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono"]
 //    optional = true
 //
-// 2. Configure no .env:
-//    DATABASE_URL=postgresql://usuario:senha@localhost/auth_db
+// 2. Configure in .env:
+//    DATABASE_URL=postgresql://user:password@localhost/auth_db
 //
-// 3. Descomente o código abaixo:
+// 3. Uncomment the code below:
 
 /*
 use auth_system::db::postgres_connection::PostgresUserRepository;
@@ -79,7 +79,7 @@ async fn main() {
     let jwt_secret = std::env::var("JWT_SECRET").expect("JWT_SECRET must be set");
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     
-    // Cria pool de conexões PostgreSQL
+    // Create PostgreSQL connection pool
     let db_pool = PgPoolOptions::new()
         .max_connections(5)
         .connect(&database_url)
@@ -90,7 +90,7 @@ async fn main() {
     
     let state = AppState { jwt_secret, user_repo };
     
-    // ... resto do código igual
+    // ... rest of code is the same
 }
 */
 
@@ -107,10 +107,10 @@ async fn main() {
 //    features = ["runtime-tokio-rustls", "mysql", "uuid", "chrono"]
 //    optional = true
 //
-// 2. Configure no .env:
-//    DATABASE_URL=mysql://usuario:senha@localhost/auth_db
+// 2. Configure in .env:
+//    DATABASE_URL=mysql://user:password@localhost/auth_db
 //
-// 3. Descomente o código abaixo:
+// 3. Uncomment the code below:
 
 /*
 use auth_system::db::mysql_connection::MySQLUserRepository;
@@ -123,7 +123,7 @@ async fn main() {
     let jwt_secret = std::env::var("JWT_SECRET").expect("JWT_SECRET must be set");
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     
-    // Cria pool de conexões MySQL
+    // Create MySQL connection pool
     let db_pool = MySqlPoolOptions::new()
         .max_connections(5)
         .connect(&database_url)
@@ -134,7 +134,7 @@ async fn main() {
     
     let state = AppState { jwt_secret, user_repo };
     
-    // ... resto do código igual
+    // ... rest of code is the same
 }
 */
 
@@ -167,7 +167,7 @@ async fn main() {
     let jwt_secret = std::env::var("JWT_SECRET").expect("JWT_SECRET must be set");
     let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     
-    // Cria pool de conexões SQLite
+    // Create SQLite connection pool
     let db_pool = SqlitePoolOptions::new()
         .max_connections(5)
         .connect(&database_url)
@@ -178,7 +178,7 @@ async fn main() {
     
     let state = AppState { jwt_secret, user_repo };
     
-    // ... resto do código igual
+    // ... rest of code is the same
 }
 */
 
@@ -221,7 +221,7 @@ async fn main() {
     
     let state = AppState { jwt_secret, user_repo };
     
-    // ... resto do código igual
+    // ... rest of code is the same
 }
 */
 

@@ -1,15 +1,15 @@
-/// Implementação MySQL do UserRepository
+/// MySQL implementation of UserRepository
 /// 
-/// Este arquivo só é compilado se a feature "mysql" estiver habilitada.
+/// This file is only compiled if the "mysql" feature is enabled.
 /// 
-/// Para usar:
-/// 1. Adicione ao Cargo.toml:
+/// To use:
+/// 1. Add to Cargo.toml:
 ///    sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "mysql", "uuid", "chrono"] }
 /// 
-/// 2. Configure o DATABASE_URL no .env:
-///    DATABASE_URL=mysql://usuario:senha@localhost/auth_db
+/// 2. Configure DATABASE_URL in .env:
+///    DATABASE_URL=mysql://user:password@localhost/auth_db
 /// 
-/// 3. Crie a tabela:
+/// 3. Create the table:
 ///    CREATE TABLE users (
 ///        id CHAR(36) PRIMARY KEY,
 ///        username VARCHAR(50) UNIQUE NOT NULL,

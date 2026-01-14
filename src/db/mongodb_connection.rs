@@ -1,17 +1,17 @@
-/// Implementação MongoDB do UserRepository
+/// MongoDB implementation of UserRepository
 /// 
-/// Este arquivo só é compilado se a feature "mongodb" estiver habilitada.
+/// This file is only compiled if the "mongodb" feature is enabled.
 /// 
-/// Para usar:
-/// 1. Adicione ao Cargo.toml:
+/// To use:
+/// 1. Add to Cargo.toml:
 ///    mongodb = "3.1"
 ///    bson = { version = "2.13", features = ["chrono-0_4", "uuid-1"] }
 /// 
-/// 2. Configure o MONGODB_URI no .env:
+/// 2. Configure MONGODB_URI in .env:
 ///    MONGODB_URI=mongodb://localhost:27017
 ///    MONGODB_DATABASE=auth_db
 /// 
-/// 3. O MongoDB criará a collection automaticamente
+/// 3. MongoDB will create the collection automatically
 
 #[cfg(feature = "mongodb")]
 use async_trait::async_trait;

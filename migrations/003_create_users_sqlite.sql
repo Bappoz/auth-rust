@@ -1,5 +1,5 @@
--- Migration para criar a tabela de usuários no SQLite
--- Execute com: sqlite3 auth.db < migrations/003_create_users_sqlite.sql
+-- Migration to create the users table in SQLite
+-- Execute with: sqlite3 auth.db < migrations/003_create_users_sqlite.sql
 
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
     is_active INTEGER DEFAULT 1
 );
 
--- Índices para melhorar performance
+-- Indexes to improve performance
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);

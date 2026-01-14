@@ -1,4 +1,4 @@
-// Este arquivo só é compilado se a feature "postgres" estiver habilitada
+// This file is only compiled if the "postgres" feature is enabled
 #[cfg(feature = "postgres")]
 use async_trait::async_trait;
 #[cfg(feature = "postgres")]
@@ -12,13 +12,13 @@ use crate::{
     errors::AuthError,
 };
 
-/// Implementação PostgreSQL do UserRepository
+/// PostgreSQL implementation of UserRepository
 /// 
-/// Usa SQLx para acessar o banco de dados PostgreSQL.
-/// Requer:
-/// - PostgreSQL instalado e rodando
-/// - Tabela 'users' criada (veja migrations)
-/// - Feature "postgres" habilitada no Cargo.toml
+/// Uses SQLx to access the PostgreSQL database.
+/// Requires:
+/// - PostgreSQL installed and running
+/// - 'users' table created (see migrations)
+/// - "postgres" feature enabled in Cargo.toml
 #[cfg(feature = "postgres")]
 pub struct PostgresUserRepository {
     pool: PgPool,
@@ -26,7 +26,7 @@ pub struct PostgresUserRepository {
 
 #[cfg(feature = "postgres")]
 impl PostgresUserRepository {
-    /// Cria uma nova instância do repositório PostgreSQL
+    /// Creates a new instance of the PostgreSQL repository
     pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
@@ -38,7 +38,7 @@ impl UserRepository for PostgresUserRepository {
     async fn create(&self, user: CreateUser, password_hash: String) -> Result<User, AuthError> {
         let id = Uuid::new_v4();
         
-        // Query SQL para inserir o usuário
+        // SQL query to insert the user
         let user = sqlx::query_as!(
             User,
             r#"

@@ -9,23 +9,23 @@ use crate::{
     errors::AuthError,
 };
 
-/// Implementação in-memory do UserRepository
+/// In-memory implementation of UserRepository
 /// 
-/// Armazena os usuários em um HashMap na memória.
-/// Útil para:
-/// - Desenvolvimento local
-/// - Testes unitários
-/// - Protótipos rápidos
+/// Stores users in a HashMap in memory.
+/// Useful for:
+/// - Local development
+/// - Unit tests
+/// - Quick prototypes
 /// 
-/// AVISO: Os dados são perdidos quando o processo termina!
+/// WARNING: Data is lost when the process ends!
 #[derive(Clone)]
 pub struct InMemoryUserRepository {
-    /// HashMap theread-safe that stores users (Key, Value)
+    /// Thread-safe HashMap that stores users (Key, Value)
     users: Arc<Mutex<HashMap<String, User>>>,
 }
 
 impl InMemoryUserRepository {
-    // Create a new instance for repository in-memory
+    // Create a new instance of the in-memory repository
     pub fn new() -> Self {
         Self{
             users: Arc::new(Mutex::new(HashMap::new())),

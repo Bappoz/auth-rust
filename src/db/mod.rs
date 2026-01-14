@@ -1,23 +1,23 @@
-// Exporta os módulos de banco de dados
+// Export database modules
 
-/// Trait principal que define as operações de repositório
+/// Main trait that defines repository operations
 pub mod user_repository;
 
-/// Implementação in-memory (para desenvolvimento e testes)
+/// In-memory implementation (for development and testing)
 pub mod memory_connection;
 
-/// Implementação PostgreSQL (opcional - feature "postgres")
+/// PostgreSQL implementation (optional - feature "postgres")
 #[cfg(feature = "postgres")]
 pub mod postgres_connection;
 
-/// Implementação MySQL (opcional - feature "mysql")
+/// MySQL implementation (optional - feature "mysql")
 #[cfg(feature = "mysql")]
 pub mod mysql_connection;
 
-/// Implementação SQLite (opcional - feature "sqlite")
+/// SQLite implementation (optional - feature "sqlite")
 #[cfg(feature = "sqlite")]
 pub mod sqlite_connection;
 
-/// Implementação MongoDB (opcional - feature "mongodb")
+/// MongoDB implementation (optional - feature "mongodb")
 #[cfg(feature = "mongodb")]
 pub mod mongodb_connection;

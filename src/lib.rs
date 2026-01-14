@@ -10,11 +10,11 @@ use crate::db::user_repository::UserRepository;
 
 #[derive(Clone)]
 pub struct AppState {
-    /// Segredo usado para assinar e verificar JWT tokens
+    /// Secret used to sign and verify JWT tokens
     pub jwt_secret: String,
     
-    /// Repositório de usuários (trait object)
-    /// Permite usar qualquer implementação de UserRepository
+    /// User repository (trait object)
+    /// Allows using any UserRepository implementation
     /// (PostgreSQL, MongoDB, In-Memory, etc)
     pub user_repo: Arc<dyn UserRepository>,
 }

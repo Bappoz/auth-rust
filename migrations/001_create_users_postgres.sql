@@ -1,5 +1,5 @@
--- Migration para criar a tabela de usuários no PostgreSQL
--- Execute com: psql -U usuario -d auth_db -f migrations/001_create_users_postgres.sql
+-- Migration to create the users table in PostgreSQL
+-- Execute with: psql -U user -d auth_db -f migrations/001_create_users_postgres.sql
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -13,13 +13,13 @@ CREATE TABLE IF NOT EXISTS users (
     is_active BOOLEAN DEFAULT TRUE
 );
 
--- Índices para melhorar performance das buscas
+-- Indexes to improve search performance
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 
--- Comentários
-COMMENT ON TABLE users IS 'Tabela de usuários do sistema de autenticação';
-COMMENT ON COLUMN users.id IS 'ID único do usuário (UUID)';
-COMMENT ON COLUMN users.username IS 'Nome de usuário (único)';
-COMMENT ON COLUMN users.email IS 'Email do usuário (único)';
-COMMENT ON COLUMN users.password_hash IS 'Hash da senha (Argon2)';
+-- Comments
+COMMENT ON TABLE users IS 'Authentication system users table';
+COMMENT ON COLUMN users.id IS 'Unique user ID (UUID)';
+COMMENT ON COLUMN users.username IS 'Username (unique)';
+COMMENT ON COLUMN users.email IS 'User email (unique)';
+COMMENT ON COLUMN users.password_hash IS 'Password hash (Argon2)';

@@ -129,25 +129,25 @@ mod tests {
 
     #[test]
     fn test_invalid_username() {
-        assert!(validate_username("ab").is_err()); // muito curto
-        assert!(validate_username("_user").is_err()); // começa com _
-        assert!(validate_username("user_").is_err()); // termina com _
-        assert!(validate_username("user name").is_err()); // tem espaço
+        assert!(validate_username("ab").is_err()); // too short
+        assert!(validate_username("_user").is_err()); // starts with _
+        assert!(validate_username("user_").is_err()); // ends with _
+        assert!(validate_username("user name").is_err()); // has space
     }
 
     #[test]
     fn test_valid_password() {
-        assert!(validate_password("Senha123!").is_ok());
+        assert!(validate_password("Password123!").is_ok());
         assert!(validate_password("MyP@ssw0rd").is_ok());
         assert!(validate_password("Str0ng#Pass").is_ok());
     }
 
     #[test]
     fn test_invalid_password() {
-        assert!(validate_password("weak").is_err()); // muito curta
-        assert!(validate_password("noupppercase1!").is_err()); // sem maiúscula
-        assert!(validate_password("NOLOWERCASE1!").is_err()); // sem minúscula
-        assert!(validate_password("NoNumbers!").is_err()); // sem número
-        assert!(validate_password("NoSpecial123").is_err()); // sem especial
+        assert!(validate_password("weak").is_err()); // too short
+        assert!(validate_password("noupppercase1!").is_err()); // no uppercase
+        assert!(validate_password("NOLOWERCASE1!").is_err()); // no lowercase
+        assert!(validate_password("NoNumbers!").is_err()); // no number
+        assert!(validate_password("NoSpecial123").is_err()); // no special
     }
 }

@@ -1,39 +1,39 @@
-# 📝 MongoDB Setup (Opcional)
+# 📝 MongoDB Setup (Optional)
 
-O MongoDB **não precisa de migrations** porque é schema-less (sem schema fixo).
+MongoDB **does not need migrations** because it is schema-less (no fixed schema).
 
-## Por que não há migrations MongoDB?
+## Why are there no MongoDB migrations?
 
-- ✅ MongoDB cria collections automaticamente
-- ✅ Não precisa definir estrutura antes
-- ✅ Cada documento pode ter campos diferentes
-- ✅ Muito mais flexível que SQL
+- ✅ MongoDB creates collections automatically
+- ✅ No need to define structure beforehand
+- ✅ Each document can have different fields
+- ✅ Much more flexible than SQL
 
-## Como configurar MongoDB?
+## How to configure MongoDB?
 
-### Opção 1: Deixar automático (recomendado)
+### Option 1: Let it be automatic (recommended)
 
-Simplesmente inicie sua aplicação com MongoDB configurado. A collection `users` será criada automaticamente no primeiro registro de usuário.
+Simply start your application with MongoDB configured. The `users` collection will be created automatically on the first user registration.
 
 ```bash
-# Configure o .env
+# Configure .env
 MONGODB_URI=mongodb://localhost:27017
 MONGODB_DATABASE=auth_db
 
-# Execute a aplicação
+# Run the application
 cargo run --features mongodb
 ```
 
-### Opção 2: Criar índices manualmente (melhor performance)
+### Option 2: Create indexes manually (better performance)
 
-Para criar índices que melhoram a performance:
+To create indexes that improve performance:
 
 ```bash
-# Execute o script de setup
+# Run the setup script
 cargo run --example mongodb_setup --features mongodb
 ```
 
-Ou crie manualmente no MongoDB shell:
+Or create manually in MongoDB shell:
 
 ```javascript
 use auth_db
@@ -43,13 +43,13 @@ db.users.createIndex({ "username": 1 }, { unique: true })
 db.users.createIndex({ "created_at": -1 })
 ```
 
-## Estrutura de Documento
+## Document Structure
 
 ```json
 {
   "_id": "550e8400-e29b-41d4-a716-446655440000",
-  "username": "joao",
-  "email": "joao@email.com",
+  "username": "john",
+  "email": "john@email.com",
   "password_hash": "$argon2id$v=19$m=19456...",
   "created_at": "2026-01-14T10:30:00Z",
   "updated_at": "2026-01-14T10:30:00Z",
@@ -57,25 +57,25 @@ db.users.createIndex({ "created_at": -1 })
 }
 ```
 
-## Índices (Opcional mas Recomendado)
+## Indexes (Optional but Recommended)
 
-- **email** (unique) - Garante emails únicos e acelera buscas
-- **username** (unique) - Garante usernames únicos e acelera buscas
-- **created_at** (descending) - Acelera ordenação por data
-
----
-
-## 📊 Comparação: SQL vs NoSQL
-
-| Aspecto             | SQL (Postgres/MySQL)     | NoSQL (MongoDB)           |
-| ------------------- | ------------------------ | ------------------------- |
-| Schema              | Rígido (precisa definir) | Flexível (sem schema)     |
-| Migrations          | **Obrigatório**          | **Opcional**              |
-| Tabelas/Collections | Criar antes              | Cria automático           |
-| Índices             | Criar nas migrations     | Criar no código ou manual |
-| Constraints         | UNIQUE, NOT NULL, etc    | Validação na aplicação    |
-| Mudanças            | Requer migration         | Só atualizar código       |
+- **email** (unique) - Ensures unique emails and speeds up searches
+- **username** (unique) - Ensures unique usernames and speeds up searches
+- **created_at** (descending) - Speeds up sorting by date
 
 ---
 
-**Conclusão:** Está correto ter apenas migrations SQL! MongoDB não precisa. 🎯
+## 📊 Comparison: SQL vs NoSQL
+
+| Aspect             | SQL (Postgres/MySQL)  | NoSQL (MongoDB)           |
+| ------------------ | --------------------- | ------------------------- |
+| Schema             | Rigid (must define)   | Flexible (schema-less)    |
+| Migrations         | **Required**          | **Optional**              |
+| Tables/Collections | Create beforehand     | Creates automatically     |
+| Indexes            | Create in migrations  | Create in code or manual  |
+| Constraints        | UNIQUE, NOT NULL, etc | Validation in application |
+| Changes            | Requires migration    | Just update code          |
+
+---
+
+**Conclusion:** It's correct to have only SQL migrations! MongoDB doesn't need them. 🎯
